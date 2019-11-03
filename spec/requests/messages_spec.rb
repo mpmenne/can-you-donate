@@ -5,7 +5,7 @@ RSpec.describe 'Messages', type: :request do
     it 'saves a new message in the database' do
       message = attributes_for(:message)
 
-      post messages_path, params: message
+      post messages_path, params: { message: message }
 
       expect(Message.count).to eq 1
     end
@@ -13,7 +13,7 @@ RSpec.describe 'Messages', type: :request do
     it 'saves a message with the same text' do
       message = attributes_for(:message)
 
-      post messages_path, params: message
+      post messages_path, params: { message: message }
 
       expect(Message.first.text).to eq message[:text]
     end
