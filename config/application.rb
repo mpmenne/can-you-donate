@@ -27,6 +27,7 @@ module Avala
     config.load_defaults 5.2
     config.generators.system_tests = nil
     config.eager_load_paths << Rails.root.join('lib')
+    config.force_ssl = true
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
