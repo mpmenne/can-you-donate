@@ -26,7 +26,6 @@ module Avala
     config.action_controller.default_protect_from_forgery = false
     config.load_defaults 5.2
     config.generators.system_tests = nil
-    config.active_job.queue_adapter = :sidekiq
     config.eager_load_paths << Rails.root.join('lib')
     config.middleware.insert_before 0, Rack::Cors do
       allow do
