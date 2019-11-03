@@ -5,11 +5,11 @@ default: &default
 
 development:
   <<: *default
-  database: can-you-donate_development
+  database: can_you_donate_development
 
 test:
   <<: *default
-  database: can-you-donate_test
+  database: can_you_donate_test
 
 production: &deploy
   encoding: utf8
