@@ -4,30 +4,23 @@
 <!-- Header 2 -->
 
 
-<div class="container">
+<div class="container" data-turbolinks="false">
   <div class="mb-3 logo color-white d-block d-xl-none text-center logo_mobile">CanYouDonate.org</div>
   <h1 class="big color-white text-center" data-aos-duration="500" data-aos="zoom-in" data-aos-delay="0">Determine your eligibility for <br/>Living Kidney Donation </h1>
-  <div class="mw-620 mx-auto mt-35 f-22 color-white op-7 text-center text-adaptive">
+  <div class="mw-620 mx-auto mt-35 f-22 color-white op-7 text-center text-adaptive pb-50">
     <span data-aos-duration="500" data-aos="zoom-in" data-aos-delay="250">
     By answering a few simple questions, <br/>
     You can determine your eligibility for Living Kidney Donation  <br/>
     in 3 minutes or less.
     </span>
   </div>
-  <div class="row align-items-center justify-content-center no-gutters mt-70">
+  <div class="row align-items-center justify-content-center no-gutters mt-30 pb-30">
     <%= link_to "Start", site_start_path, class: "btn action-1 lg" %> 
   </div>
   
-  <form class="row align-items-center justify-content-center no-gutters">
-    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-9 d-flex flex-wrap justify-content-center justify-content-md-between holder flex-container">
-      <div class="messages">
-        <p class="from-me">Hi! Are you interested in Living Kidney Donation?</p>
-      </div>
-      <!--<div class="iframe-container">-->
-        <!--<iframe src="bubbles.html"></iframe>-->
-      <!--</div>-->
-    </div>
-  </form>
+  <div class="row align-items-center justify-content-center no-gutters">
+		<%= render partial: "messenger" %>
+  </div>
   
   <div class="color-white op-3 text-center mt-35">
     <span data-aos-duration="500" data-aos="zoom-in" data-aos-delay="750">			
@@ -37,148 +30,13 @@
     
 </div>
 
-<!-- forms alerts -->
-<div class="alert alert-success alert-dismissible fixed-top alert-form-success" role="alert">
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	Thanks for your message!
-</div>
-<div class="alert alert-warning alert-dismissible fixed-top alert-form-check-fields" role="alert">
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	Please, fill in required fields.
-</div>
-<div class="alert alert-danger alert-dismissible fixed-top alert-form-error" role="alert">
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	An error occurred while sending data :(
-</div>
-
 	<script>
-		$(document).ready(function() {
-			var timeout = 625;
-			setTimeout(function() {
-				add_message_from_them("Yes!")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_me("Great, I'm here to help!")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_me("Feel free to ask questions anytime.")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_me("Also, any information you share with me will be held strictly private unless you choose to share it.")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_me("Let's get started. How old are you?")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_them("52")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_me("Thank You.  And about how much to you weigh in pounds?")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_them("220")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_me("Thank You.  And are you taller than 5'10 or shorter?")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_them("Taller")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_them("Great. Half way done. 3 more questions.")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_me("Are you being treated for Diabetes?")
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_them("No")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_me("Thank You. Do you have health insurance?")
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_them("Yes")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_me("Thank You. Last Question. Are you choosing living kidney donation under your own free will with no expectation of reward or payment?")
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_them("Yes")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_me("Good News!  Based on the data you have provided, you are healthy enough to be considered for Living Kidney donation.  You'll need contact a transplant center for further testing.  Do you have someone you would like to donate to specifically?")
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_them("No")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_me("Okay. I can connect you to a local transplant center for additional testing if you would like. If you provide me your zip code, I can find transplant centers in your area.")
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_them("63139")
-				show_spinner();
-			}, timeout)
-			timeout += 1800
-			setTimeout(function() {
-				hide_spinner();
-				add_message_from_me("There are two transplant centers near you. Saint Louis University Hospital and Barnes Jewish Hospital")
-			}, timeout)
-		});
-	</script>
+    $(document).on('turbolinks:load', function() {
+      demo = true;
+      if(demo) {
+        show_demo_messages()
+      }
+    });
+  </script>
 
 

@@ -23,25 +23,7 @@
   flex-flow: column;
   height: 100%;
 }
-.iframe-container {
-  overflow: hidden;
-  position: relative;
-  flex: 1 1 auto;
-  display: flex;
-  height: 100%;
-}
 
-.iframe-container-4x3 {
-  padding-top: 75%;
-}
-
-iframe {
-  border: 0;
-  height: 400px;
-  left: 0;
-  top: 0;
-  width: 100%;
-}
 body {
   font-family: Nunito Sans;
   font-weight: 400;
@@ -49,6 +31,7 @@ body {
   line-height: 26px;
   color: #949ba0;
   -webkit-font-smoothing: antialiased;
+	background-color: #f5f7fa;
 }
 body.dev {
   background: #ccc;

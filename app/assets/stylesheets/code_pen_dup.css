@@ -1,12 +1,47 @@
+.chat {
+  background-color: white;
+  border-radius: 20px;
+}
+
+.messenger-container {
+	height: 500px;
+	max-height: 500px;
+	overflow-y: scroll;
+  padding-left: 30px;
+  padding-right: 30px;
+	border-bottom: 1px solid #ecf0f1;
+}
 
 .messages {
-	font-family: "Helvetica Neue";
 	font-size: 20px;
 	font-weight: normal;
   max-width: 700px;
 	margin: 50px auto;
 	display: flex;
 	flex-direction: column;
+}
+
+.message-inputs {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: 10px;
+	margin-left: 30px;
+	display: inherit;
+}
+
+.message-input {
+	color: black;
+	display:block;
+  overflow-x: hidden;
+  overflow-y: scroll;
+	width: 100%;
+}
+
+.message-submit-btn {
+	background-color: #007bff;
+	border-radius: 20px;
+	float: right;
+	color: white;
 }
 
 .messages > p {
