@@ -16,7 +16,6 @@
 
 // generated conent
 //= require jquery
-//= require jquery_ujs
 //= require jquery.maskedinput.min.js
 //= require script
 //= require_tree .

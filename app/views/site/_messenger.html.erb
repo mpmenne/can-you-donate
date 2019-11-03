@@ -1,5 +1,5 @@
-
-<form class="col-xl-5 col-lg-6 col-md-8 col-sm-9 d-flex flex-wrap justify-content-center justify-content-md-between holder flex-container chat">
+<%= simple_form_for(Message.new, remote: true, defaults: { wrapper: false }, html: { class: "col-xl-5 col-lg-6 col-md-8 col-sm-9 d-flex flex-wrap justify-content-center justify-content-md-between holder flex-container chat" }) do |f| %> 
+  
   <div class="messenger-container">
     <div class="messages">
       <p class="from-me">Hi! Are you interested in Living Kidney Donation?</p>
@@ -7,8 +7,8 @@
   </div>
 
   <div class="message-inputs">
-    <input class="message-input" type="text" placeholder="Message">
-    <input class="message-submit-btn" type="submit" value="Send">
+    <%= f.input :text, label: false, placeholder: "Message", input_html: { class: "message-input"} %>
+    <%= f.button :submit, "Send", class: "message-submit-btn" %>
   </div>
 </div>
-</form>
+<% end %>

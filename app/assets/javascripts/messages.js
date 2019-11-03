@@ -1,3 +1,7 @@
+function handle_new_message(message) {
+  alert('hey!');
+}
+
 function add_message_from_me(message) {
   var element = document.createElement('p');
   element.className = "from-me";
