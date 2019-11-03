@@ -55,6 +55,7 @@ group :test do
   gem 'shoulda'
   gem 'formulaic'
   gem 'capybara-selenium'
+  gem 'launchy'
   gem 'factory_bot_rails'
   gem 'spring-commands-rspec'
 end

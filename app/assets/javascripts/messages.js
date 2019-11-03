@@ -1,5 +1,6 @@
-function handle_new_message(message) {
-  alert('hey!');
+
+function clear_message_field() {
+  $("#message_text").val("")
 }
 
 function add_message_from_me(message) {

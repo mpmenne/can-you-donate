@@ -12,3 +12,10 @@
   </div>
 </div>
 <% end %>
+
+<script>
+  document.body.addEventListener('ajax:success', function(event) {
+    clear_message_field()  
+  })
+
+</script>

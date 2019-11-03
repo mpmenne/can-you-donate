@@ -1,6 +1,9 @@
 class MessagesController < ApplicationController
   def create
-    Message.create!(message_params)
+    @message = Message.create!(message_params)
+    respond_to do |format|
+      format.json { render json: @message }
+    end
   end
 
   private

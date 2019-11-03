@@ -17,5 +17,21 @@ RSpec.describe 'Messages', type: :request do
 
       expect(Message.first.text).to eq message[:text]
     end
+
+    it 'renders the new message' do
+      message = attributes_for(:message)
+
+      post messages_path, params: { message: message }
+
+      expect(JSON.parse(response.body)).to include(message.stringify_keys)
+    end
+
+    it 'has status success' do
+      message = attributes_for(:message)
+
+      post messages_path, params: { message: message }
+
+      expect(response).to have_http_status(:ok)
+    end
   end
 end
