@@ -8,6 +8,7 @@ env:
   global:
     - NOKOGIRI_USE_SYSTEM_LIBRARIES=true # prevents nokogiri from downloading slooooow libraries
 before_script:
+  - bundle update --bundler
   - bundle exec rake db:migrate
 addons:
   chrome: stable
