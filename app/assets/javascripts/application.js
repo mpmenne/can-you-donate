@@ -19,3 +19,4 @@
 //= require jquery.maskedinput.min.js
 //= require script
 //= require_tree .
+//= require messages

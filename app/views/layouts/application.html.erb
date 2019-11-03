@@ -23,8 +23,41 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
+  <header class="pt-100 pb-80 header_2">
+
+	<!-- Header Menu 2 -->
+
   <body>
+    <nav class="header_menu_2 transparent pt-30 pb-30 mt-20">
+      <div class="container px-xl-0">
+        <div class="row justify-content-between align-items-baseline">
+          <div class="col-md-4">
+            <div class="logo color-white">CanYouDonate.org</div>
+          </div>
+          <div class="col-md-6 d-flex justify-content-end align-items-center">
+            <a href="#" class="link color-white f-18 mx-15">For Patients</a>
+            <a href="#" class="link color-white f-18 mx-15">For Transplant Centers</a>
+            <a href="#" class="btn sm action-2 mx-15">Log In</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
     <%= yield %>
+    <!-- forms alerts -->
+    <div class="alert alert-success alert-dismissible fixed-top alert-form-success" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      Thanks for your message!
+    </div>
+    <div class="alert alert-warning alert-dismissible fixed-top alert-form-check-fields" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      Please, fill in required fields.
+    </div>
+    <div class="alert alert-danger alert-dismissible fixed-top alert-form-error" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      An error occurred while sending data :(
+    </div>
   </body>
   <!-- Bootstrap 4.3.1 JS -->
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
