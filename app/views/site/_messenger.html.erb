@@ -15,6 +15,8 @@
 
 <script>
   document.body.addEventListener('ajax:success', function(event) {
+    var message = $("#message_text").val()
+    add_message_from_them(message)
     clear_message_field()  
   })
 
