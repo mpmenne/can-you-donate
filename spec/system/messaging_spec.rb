@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Messaging' do
@@ -21,6 +23,25 @@ RSpec.describe 'Messaging' do
       messages = find('.messages')
       expect(message_text).to be_blank
       expect(messages).to have_content('Hi')
+    end
+
+    it 'adds a new message when a response comes in from the chatbot' do
+      visit site_start_path
+
+      fill_in 'message_text', with: 'Hi'
+
+      click_button 'Send'
+
+      expect(page).to have_selector('.from-me', count: 2, wait: 5)
+    end
+
+    it 'sends a message to twilio autopilot' do
+      visit site_start_path
+
+      fill_in 'message_text', with: 'Hi'
+
+      expect { click_button 'Send' }
+        .to change(TwilioAutopilot.client.sent_messages, :count).by 1
     end
   end
 end
