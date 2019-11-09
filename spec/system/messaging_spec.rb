@@ -34,14 +34,5 @@ RSpec.describe 'Messaging' do
 
       expect(page).to have_selector('.from-me', count: 2, wait: 5)
     end
-
-    it 'sends a message to twilio autopilot' do
-      visit site_start_path
-
-      fill_in 'message_text', with: 'Hi'
-
-      expect { click_button 'Send' }
-        .to change(TwilioAutopilot.client.sent_messages, :count).by 1
-    end
   end
 end
