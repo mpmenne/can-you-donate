@@ -17,6 +17,8 @@
 // generated conent
 //= require jquery
 //= require jquery.maskedinput.min.js
+//= require twilio-chat.min.js
+//= require twilio-common.min.js
 //= require script
 //= require_tree .
 //= require messages

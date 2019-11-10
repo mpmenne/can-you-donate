@@ -1,3 +1,87 @@
+var twilio_token;
+var identity;
+var chatClient;
+var chatChannel;
+
+Rails.start
+
+Rails.ajax({
+  url: "/tokens",
+  type: "post",
+  data: "",
+  success: function(data) { 
+    console.log('got it!');
+    twilio_token = data.token;
+    identity = data.identity
+    Twilio.Chat.Client.create(data.token).then(client => {
+      console.log('Created chat client');
+      chatClient = client;
+      chatClient.getSubscribedChannels().then(createOrJoinPersonalChannel(identity));
+    })
+  },
+  error: function(data) { console.log('token bombed')}
+})
+
+function createOrJoinPersonalChannel(identity) {
+  console.log('Attempting to join personal chat channel...');
+  chatClient.getChannelByUniqueName(identity)
+  .then(function(channel) {
+    generalChannel = channel;
+    console.log('Found channel: ' + identity);
+    console.log(generalChannel);
+    setupChannel();
+  }).catch(function() {
+    // If it doesn't exist, let's create it
+    console.log('Creating channel ' + identity);
+    chatClient.createChannel({
+      uniqueName: identity,
+      friendlyName: 'Personal' + identity +' Channel'
+    }).then(function(channel) {
+      console.log('Personal ' + identity +' Channel');
+      chatChannel = channel;
+      setupChannel();
+    }).catch(function(channel) {
+      console.log('Channel could not be created:');
+      console.log('errrors' + channel);
+    });
+  });
+}
+
+function setupChannel() {
+  // Join the general channel
+  chatChannel.join().then(function(channel) {
+    console.log('General ' + identity +' Channel joined');
+
+    // listen for new messages
+    chatChannel.on('messageAdded', function(message) {
+      if(message.author == identity) {
+        console.log('message from them - author: ' + message.author + ' - message: ' + message.body);
+        add_message_from_them(message.body);
+        clear_message_field();
+      } else {
+        console.log('A message from the ether!!!');
+        console.log('author ' + message.author + ' me: ' + identity);
+      }
+    });
+  });
+}
+
+$(document).on('turbolinks:load', function() {
+  console.log('DOM ready!');
+  document.querySelector("#new_message").addEventListener("submit", function() {
+    message = message_text();
+    console.log('submitted ' + message); 
+    send_message_to_twilio(message);
+  }, false);
+});
+
+function send_message_to_twilio(message) {
+  chatChannel.sendMessage(message)
+}
+
+function message_text() {
+  return $("#message_text").val()
+}
 
 function clear_message_field() {
   $("#message_text").val("")
