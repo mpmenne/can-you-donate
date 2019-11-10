@@ -42,7 +42,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jquery-rails'
 gem 'rack-cors'
 gem 'simple_form'
-gem 'twilio-ruby', '~> 5.23.1'
+gem 'twilio-ruby', '~> 5.29.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -62,6 +62,7 @@ group :test do
   gem 'launchy'
   gem 'shoulda'
   gem 'spring-commands-rspec'
+  gem 'climate_control'
 end
 
 group :development do
