@@ -4,9 +4,13 @@ RSpec.describe TokensController, type: :controller do
   describe 'POST /tokens' do
     it 'generates a token from twilio' do
       token = '123'
+      channel = 'canyoudonate_123'
       allow(TwilioTokenService)
         .to receive(:call)
         .and_return(token)
+      allow(TwilioChannelService)
+        .to receive(:call)
+        .and_return(channel)
 
       post :create, params: {}
 
@@ -16,9 +20,13 @@ RSpec.describe TokensController, type: :controller do
 
     it 'adds the users identity' do
       token = '123'
+      channel = 'canyoudonate_123'
       allow(TwilioTokenService)
         .to receive(:call)
         .and_return(token)
+      allow(TwilioChannelService)
+        .to receive(:call)
+        .and_return(channel)
 
       post :create, params: {}
 
@@ -40,6 +48,25 @@ RSpec.describe TokensController, type: :controller do
 
       expect(JSON.parse(response.body))
         .to include('channel' => channel)
+    end
+
+    it 'associates a webhook with the channel' do
+      token = '123'
+      channel = 'canyoudonate_123'
+      allow(TwilioTokenService)
+        .to receive(:call)
+        .and_return(token)
+      allow(TwilioChannelService)
+        .to receive(:call)
+        .and_return(channel)
+      allow(TwilioWebhookService)
+        .to receive(:call)
+
+      post :create, params: {}
+
+      expect(TwilioWebhookService)
+        .to have_received(:call)
+        .with(channel)
     end
   end
 end

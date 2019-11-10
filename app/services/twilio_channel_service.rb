@@ -15,6 +15,5 @@ class TwilioChannelService < ApplicationService
       type: 'private'
     }
     channel = client.chat.services(@chat_service_sid).channels.create(params)
-    channel.unique_name
   end
 end

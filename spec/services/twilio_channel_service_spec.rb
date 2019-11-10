@@ -65,9 +65,9 @@ RSpec.describe TwilioChannelService do
           .to receive_message_chain(:chat, :services, :channels, :create)
           .and_return(channel_stub)
 
-        unique_name = described_class.call(visitor_id)
+        channel = described_class.call(visitor_id)
 
-        expect(unique_name).to eq "canyoudonate_#{visitor_id}"
+        expect(channel).to eq channel_stub
       end
     end
     it 'assocaites the our bot friend with the channel via webhook'
@@ -83,7 +83,9 @@ RSpec.describe TwilioChannelService do
 
   def stub_channel(visitor_id)
     channel_stub = instance_double(Twilio::REST::Chat::V2::ServiceContext::ChannelInstance)
-    allow(channel_stub).to receive(:unique_name).and_return("canyoudonate_#{visitor_id}")
+    allow(channel_stub)
+      .to receive(:unique_name)
+      .and_return("canyoudonate_#{visitor_id}")
     channel_stub
   end
 
