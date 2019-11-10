@@ -1,6 +1,7 @@
 var twilio_token;
 var identity;
 var chatClient;
+var chatChannelName;
 var chatChannel;
 
 Rails.start
@@ -13,6 +14,7 @@ Rails.ajax({
     console.log('got it!');
     twilio_token = data.token;
     identity = data.identity
+    chatChannelName = data.channel
     Twilio.Chat.Client.create(data.token).then(client => {
       console.log('Created chat client');
       chatClient = client;
@@ -24,26 +26,15 @@ Rails.ajax({
 
 function createOrJoinPersonalChannel(identity) {
   console.log('Attempting to join personal chat channel...');
-  chatClient.getChannelByUniqueName(identity)
+  chatClient.getChannelByUniqueName(chatChannelName)
   .then(function(channel) {
-    generalChannel = channel;
-    console.log('Found channel: ' + identity);
-    console.log(generalChannel);
+    chatChannel = channel;
+    console.log('Found channel: ' + chatChannelName);
+    console.log(chatChannel);
     setupChannel();
   }).catch(function() {
     // If it doesn't exist, let's create it
-    console.log('Creating channel ' + identity);
-    chatClient.createChannel({
-      uniqueName: identity,
-      friendlyName: 'Personal' + identity +' Channel'
-    }).then(function(channel) {
-      console.log('Personal ' + identity +' Channel');
-      chatChannel = channel;
-      setupChannel();
-    }).catch(function(channel) {
-      console.log('Channel could not be created:');
-      console.log('errrors' + channel);
-    });
+    console.log('Unable to create channel ' + chatChannelName);
   });
 }
 
@@ -61,6 +52,7 @@ function setupChannel() {
       } else {
         console.log('A message from the ether!!!');
         console.log('author ' + message.author + ' me: ' + identity);
+        add_message_from_me(message.body);
       }
     });
   });

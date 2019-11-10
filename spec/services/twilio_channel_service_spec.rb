@@ -10,17 +10,15 @@ RSpec.describe TwilioChannelService do
       }
       ClimateControl.modify(secrets) do
         visitor_id = '123'
-        client_stub = stub_twilio_client
         channel_stub = stub_channel(visitor_id)
-        allow(client_stub)
-          .to receive_message_chain(:chat, :services, :channels, :create)
-          .and_return(channel_stub)
-
+        real_channel_stub = stub_real_channel
+        service_stub = stub_service(channel_stub, real_channel_stub)
+        client_stub = stub_twilio_client(service_stub)
 
         described_class.call(visitor_id)
 
         expect(client_stub.chat).to have_received(:services)
-          .with(secrets[:TWILIO_CHAT_SERVICE_SID])
+          .with(secrets[:TWILIO_CHAT_SERVICE_SID]).twice
         expect(client_stub.chat.services.channels)
           .to have_received(:create)
       end
@@ -33,18 +31,16 @@ RSpec.describe TwilioChannelService do
       }
       ClimateControl.modify(secrets) do
         visitor_id = '123'
-        client_stub = stub_twilio_client
         channel_stub = stub_channel(visitor_id)
-        allow(client_stub)
-          .to receive_message_chain(:chat, :services, :channels, :create)
-          .and_return(channel_stub)
+        real_channel_stub = stub_real_channel
+        service_stub = stub_service(channel_stub, real_channel_stub)
+        client_stub = stub_twilio_client(service_stub)
 
         described_class.call(visitor_id)
 
         params = {
           friendly_name: "canyoudonate_#{visitor_id}",
           unique_name:  "canyoudonate_#{visitor_id}",
-          type: 'private'
         }
         expect(client_stub.chat.services.channels)
           .to have_received(:create)
@@ -60,12 +56,13 @@ RSpec.describe TwilioChannelService do
       ClimateControl.modify(secrets) do
         visitor_id = '123'
         channel_stub = stub_channel(visitor_id)
-        client_stub = stub_twilio_client(channel_stub)
-        allow(channel_stub).to receive(:fetch)
+        real_channel_stub = stub_real_channel
+        service_stub = stub_service(channel_stub, real_channel_stub)
+        client_stub = stub_twilio_client(service_stub)
 
         channel = described_class.call(visitor_id)
 
-        expect(channel).to eq channel_stub
+        expect(channel).to eq real_channel_stub
       end
     end
   end
@@ -78,30 +75,27 @@ RSpec.describe TwilioChannelService do
       }
       ClimateControl.modify(secrets) do
         visitor_id = '123'
-        real_channel_stub = double('channel')
-        allow(real_channel_stub)
-          .to receive(:blank?)
-          .and_return(false)
         channel_stub = stub_channel(visitor_id)
-        service_stub = stub_service(channel_stub)
+        real_channel_stub = stub_real_channel
+        service_stub = stub_service(channel_stub, real_channel_stub, true)
         client_stub = stub_twilio_client(service_stub)
-        allow(service_stub)
-          .to receive_message_chain(:channels, :fetch)
-          .with(any_args)
-          .and_return(real_channel_stub)
 
         described_class.call(visitor_id)
 
         params = {
           friendly_name: "canyoudonate_#{visitor_id}",
-          unique_name:  "canyoudonate_#{visitor_id}",
-          type: 'private'
+          unique_name:  "canyoudonate_#{visitor_id}"
         }
         expect(client_stub.chat.services.channels)
           .not_to have_received(:create)
           .with(params)
       end
     end
+  end
+
+  def stub_real_channel
+    real_channel_stub = double('channel')
+    real_channel_stub
   end
 
   def stub_twilio_client(services_stub)
@@ -118,17 +112,33 @@ RSpec.describe TwilioChannelService do
   def stub_channel(channel_sid)
     channel_stub = double(Twilio::REST::Chat::V2::ServiceContext::ChannelContext)
     allow(channel_stub)
-      .to receive_message_chain(:fetch)
+      .to receive(:fetch)
+      .with(anything)
     allow(channel_stub)
       .to receive_message_chain(:create)
     channel_stub
   end
 
-  def stub_service(channel_stub)
-      service_stub = instance_double(Twilio::REST::Chat::V2::ServiceContext)
+  def stub_service(channel_stub, real_channel_stub, fetchable = false)
+    service_stub = instance_double(Twilio::REST::Chat::V2::ServiceContext)
+    allow(service_stub)
+      .to receive(:channels)
+      .and_return(channel_stub)
+    if fetchable
       allow(service_stub)
-        .to receive(:channels)
-        .and_return(channel_stub)
-      service_stub
+        .to receive_message_chain(:channels, :fetch)
+        .with(any_args)
+        .and_return(real_channel_stub)
+    else
+      allow(service_stub)
+        .to receive_message_chain(:channels, :fetch)
+        .with(any_args)
+        .and_raise(Twilio::REST::RestError)
+      allow(service_stub)
+        .to receive_message_chain(:channels, :create)
+        .with(any_args)
+        .and_return(real_channel_stub)
     end
+    service_stub
+  end
 end
