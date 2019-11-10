@@ -9,11 +9,20 @@ class TwilioChannelService < ApplicationService
 
   def call
     client = Twilio::REST::Client.new(@account_sid, @auth_token)
-    params = {
-      friendly_name: "canyoudonate_#{@visitor_id}",
-      unique_name: "canyoudonate_#{@visitor_id}",
-      type: 'private'
-    }
-    channel = client.chat.services(@chat_service_sid).channels.create(params)
+    channel = client.chat
+      .services(@chat_service_id)
+      .channels("canyoudonate_#{@visitor_id}")
+      .fetch
+    if channel.blank?
+      params = {
+        friendly_name: "canyoudonate_#{@visitor_id}",
+        unique_name: "canyoudonate_#{@visitor_id}",
+        type: 'private'
+      }
+      channel = client.chat
+        .services(@chat_service_sid)
+        .channels.create(params)
+    end
+    channel
   end
 end

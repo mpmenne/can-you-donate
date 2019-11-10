@@ -8,7 +8,7 @@ class TwilioWebhookService < ApplicationService
   end
 
   def call
-    client = Twilio::REST::Client.new(@account_id, @auth_token)
+    client = Twilio::REST::Client.new(@account_sid, @auth_token)
     params = {
       configuration_filters: ['onMessageSent'],
       configuration_method: 'POST',
