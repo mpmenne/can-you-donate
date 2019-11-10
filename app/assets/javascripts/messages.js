@@ -15,7 +15,7 @@ Rails.ajax({
     twilio_token = data.token;
     identity = data.identity
     chatChannelName = data.channel
-    Twilio.Chat.Client.create(data.token).then(client => {
+    Twilio.Chat.Client.create(data.token).then(function(client) {
       console.log('Created chat client');
       chatClient = client;
       chatClient.getSubscribedChannels().then(createOrJoinPersonalChannel(identity));
