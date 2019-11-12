@@ -46,7 +46,7 @@ function setupChannel() {
     // listen for new messages
     chatChannel.on('messageAdded', function(message) {
       if(message.author == identity) {
-        console.log('message from them - author: ' + message.author + ' - message: ' + message.body);
+        console.log('message from them - author: ' + message.author + ' - message: ' + message.body + ' sid ' + message.sid);
         add_message_from_them(message.body);
         clear_message_field();
       } else {
