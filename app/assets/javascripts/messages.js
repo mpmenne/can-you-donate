@@ -46,7 +46,7 @@ function setupChannel() {
 
     // listen for new messages
     chatChannel.on('messageAdded', function(message) {
-      console.log('message from them - author: ' + message.author + ' - message: ' + message.body + ' sid ' + message.sid);
+      corsole.log('message from - author: ' + message.author + ' - message: ' + message.body + ' sid ' + message.sid);
       if(message.author == identity) {
         add_message_from_them(message.body);
         clear_message_field();
