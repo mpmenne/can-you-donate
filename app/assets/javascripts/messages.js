@@ -19,13 +19,13 @@ Rails.ajax({
     Twilio.Chat.Client.create(data.token).then(function(client) {
       console.log('Created chat client');
       chatClient = client;
-      chatClient.getSubscribedChannels().then(createOrJoinPersonalChannel(identity));
+      chatClient.getSubscribedChannels().then(createOrJoinPersonalChannel);
     })
   },
   error: function(data) { console.log('token bombed')}
 })
 
-function createOrJoinPersonalChannel(identity) {
+function createOrJoinPersonalChannel() {
   console.log('Attempting to join personal chat channel...');
   chatClient.getChannelByUniqueName(chatChannelName)
   .then(function(channel) {
@@ -46,7 +46,7 @@ function setupChannel() {
 
     // listen for new messages
     chatChannel.on('messageAdded', function(message) {
-      corsole.log('message from - author: ' + message.author + ' - message: ' + message.body + ' sid ' + message.sid);
+      console.log('message from - author: ' + message.author + ' - message: ' + message.body + ' sid ' + message.sid);
       if(message.author == identity) {
         add_message_from_them(message.body);
         clear_message_field();
