@@ -3,6 +3,7 @@ var identity;
 var chatClient;
 var chatChannelName;
 var chatChannel;
+var receivedMessages = [];
 
 Rails.start
 
@@ -50,9 +51,12 @@ function setupChannel() {
         add_message_from_them(message.body);
         clear_message_field();
       } else {
-        console.log('A message from the ether!!!');
-        console.log('author ' + message.author + ' me: ' + identity);
-        add_message_from_me(message.body);
+        if(!receivedMessages.includes(message.sid)) {
+          receivedMessages << message.sid
+          console.log('A message from the ether!!!');
+          console.log('author ' + message.author + ' me: ' + identity);
+          add_message_from_me(message.body);
+        }
       }
     });
   });
