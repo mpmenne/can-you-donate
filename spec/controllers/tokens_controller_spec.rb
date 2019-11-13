@@ -56,7 +56,7 @@ RSpec.describe TokensController, type: :controller do
         .to include('channel' => channel.unique_name)
     end
 
-    it 'associates a webhook with the channel' do
+    xit 'associates a webhook with the channel' do
       token = '123'
       channel = stub_channel('canyoudonate_123')
       allow(TwilioTokenService)
