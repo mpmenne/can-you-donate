@@ -1,14 +1,3 @@
-<script id="ha-widget-config" type="application/json">
-  {
-    "url": "https://give.canyoudonate.org/e/nKVBPXKG",
-    "dataUrl": "https://give.canyoudonate.org/api/v1/experiences/nKVBPXKG",
-    "title": "Answer Now",
-    "shape": "text-only",
-    "widget": true,
-    "color": "	#00FF00",
-    "position": "right"
-  }
-</script>
 
 <a class="open_menu color-main bg-light radius_full"><i class="fas fa-bars lh-40"></i></a>
 <!-- Header 2 -->
@@ -38,6 +27,35 @@
     <a href="#" class="link color-white">Terms of Service</a>			</span>			
   </div>
     
+</div>
+
+<div class="container" data-turbolinks="false">
+  <iframe
+      src="https://give.canyoudonate.org/e/nKVBPXKG/Xb1waO1kd8"
+      title="Experience"
+      id="ha-form--iframe-tag-nKVBPXKG-KFzO9t6s46hAqszXubuBG"
+      allow="microphone; camera;"
+      width="100%"
+      height="660"
+      frameBorder="0"
+      style="border:none;min-width:320px;max-width:400px">
+    </iframe>
+    <script type="text/javascript">
+      (function() {
+        var windowId = 'KFzO9t6s46hAqszXubuBG';
+        var node = document.getElementById('ha-form--iframe-tag-nKVBPXKG-KFzO9t6s46hAqszXubuBG');
+        var heightSetted = node.height !== '0';
+        var hostParams = window.location.search.replace('?', '');
+        var urlParams = [hostParams].join('&');
+        var handShake = function(node) {
+          return function() {
+            node.contentWindow.postMessage({ type: 'ha-form.HANDSHAKE', windowId }, '*');
+          };
+        };
+        node.src = urlParams ? node.src + '?' + urlParams : node.src;
+        node.onload = handShake(node);
+      })();
+    </script>
 </div>
 
 	<script>
