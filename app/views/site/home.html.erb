@@ -29,35 +29,6 @@
     
 </div>
 
-<div class="container" data-turbolinks="false">
-  <iframe
-      src="https://give.canyoudonate.org/e/nKVBPXKG/Xb1waO1kd8"
-      title="Experience"
-      id="ha-form--iframe-tag-nKVBPXKG-KFzO9t6s46hAqszXubuBG"
-      allow="microphone; camera;"
-      width="100%"
-      height="660"
-      frameBorder="0"
-      allowpaymentrequest="true"
-      style="border:none;min-width:320px;max-width:400px">
-    </iframe>
-    <script type="text/javascript">
-      (function() {
-        var windowId = 'KFzO9t6s46hAqszXubuBG';
-        var node = document.getElementById('ha-form--iframe-tag-nKVBPXKG-KFzO9t6s46hAqszXubuBG');
-        var heightSetted = node.height !== '0';
-        var hostParams = window.location.search.replace('?', '');
-        var urlParams = [hostParams].join('&');
-        var handShake = function(node) {
-          return function() {
-            node.contentWindow.postMessage({ type: 'ha-form.HANDSHAKE', windowId }, '*');
-          };
-        };
-        node.src = urlParams ? node.src + '?' + urlParams : node.src;
-        node.onload = handShake(node);
-      })();
-    </script>
-</div>
 
 	<script>
     $(document).on('turbolinks:load', function() {
